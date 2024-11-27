@@ -12,10 +12,13 @@ $id=$_GET['id'];
 //safty purpose copy the get id
 $profileid=$id;
 
+// Initialize variables with default values
+$fname = $lname = $sex = $email = $dob = $religion = $caste = $subcaste = $country = $state = $district = $age = $maritalstatus = $profileby = $education = $edudescr = $bodytype = $physicalstatus = $drink = $smoke = $mothertounge = $bloodgroup = $weight = $height = $colour = $diet = $occupation = $occupationdescr = $fatheroccupation = $motheroccupation = $income = $bros = $sis = $aboutme = "";
+
 //getting profile details from db
 $sql="SELECT * FROM customer WHERE cust_id = $id";
 $result = mysqlexec($sql);
-if($result){
+if($result && mysqli_num_rows($result) > 0){
 $row=mysqli_fetch_assoc($result);
 
 	$fname=$row['firstname'];
@@ -364,24 +367,21 @@ $(document).ready(function(){
 //getting partner prefernce
 $sql = "SELECT * FROM partnerprefs WHERE custId = $id";
 $result = mysqlexec($sql);
-$row= mysqli_fetch_assoc($result);
+if($result && mysqli_num_rows($result) > 0)
 
-$agemin=$row['agemin'];
-$agemax=$row['agemax'];
-$maritalstatus=$row['maritalstatus'];
-$complexion=$row['complexion'];
-$height=$row['height'];
-$diet=$row['diet'];
-$religion=$row['religion'];
-$caste=$row['caste'];
-$mothertounge=$row['mothertounge'];
-$education=$row['education'];
-$occupation=$row['occupation'];
-$country=$row['country'];
-$descr=$row['descr'];
-
-
-
+		$agemin=isset($row['agemin']) ? $row['agemin'] : '';
+		$agemax=isset($row['agemax']) ? $row['agemax'] : '';
+		$maritalstatus=isset($row['maritalstatus']) ? $row['maritalstatus'] : '';
+		$complexion=isset($row['complexion']) ? $row['complexion'] : '';
+		$height=isset($row['height']) ? $row['height'] : '';
+		$diet=isset($row['diet']) ? $row['diet'] : '';
+		$religion=isset($row['religion']) ? $row['religion'] : '';
+		$caste=isset($row['caste']) ? $row['caste'] : '';
+		$mothertounge=isset($row['mothertounge']) ? $row['mothertounge'] : '';
+		$education=isset($row['education']) ? $row['education'] : '';
+		$occupation=isset($row['occupation']) ? $row['occupation'] : '';
+		$country=isset($row['country']) ? $row['country'] : '';
+		$descr=isset($row['descr']) ? $row['descr'] : '';
 ?>
 				 <div role="tabpanel" class="tab-pane fade" id="profile1" aria-labelledby="profile-tab1">
 				    <div class="basic_1 basic_2">
@@ -468,8 +468,8 @@ $descr=$row['descr'];
           //getting photo
           $sql="SELECT * FROM photos WHERE cust_id=$profid";
           $result2=mysqlexec($sql);
-          $photo=mysqli_fetch_assoc($result2);
-          $pic=$photo['pic1'];
+		  $photo=mysqli_fetch_assoc($result2); 
+		  $pic = isset($photo['pic1']) ? $photo['pic1'] : 'default.jpg';
           echo "<ul class=\"profile_item\">";
             echo"<a href=\"view_profile.php?id={$profid}\">";
               echo "<li class=\"profile_item-img\"><img src=\"profile/". $profid."/".$pic ."\"" . "class=\"img-responsive\" alt=\"\"/></li>";
