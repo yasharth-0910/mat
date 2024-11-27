@@ -217,7 +217,10 @@ if(isset($_POST['search'])){
 
 //code to print matching profiles
 
-// couloumn count
+
+
+
+// coloumn count
 
 $c_count = '1';
 

@@ -65,9 +65,10 @@ $row=mysqli_fetch_assoc($result);
 	$pic3="";
 	$pic4="";
 //getting image filenames from db
+//if($result && mysqli_num_rows($result) > 0)
 $sql2="SELECT * FROM photos WHERE cust_id = $profileid";
 $result2 = mysqlexec($sql2);
-if($result2){
+if($result2 && mysqli_num_rows($result2) > 0){
 	$row2=mysqli_fetch_array($result2);
 	$pic1=$row2['pic1'];
 	$pic2=$row2['pic2'];
